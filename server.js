@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const db = require('./db/db.json');
 const fs = require('fs');
-const { v4: uuidv4 } = require('uuid');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -14,7 +13,7 @@ app.use(express.static('public'));
 
 // GET Route for homepage
 app.get('/', (req, res) => {
-    fs.readFile(.db/db.json, "utf8", (err, data) => {
+    fs.readFile(db/db.json, "utf8", (err, data) => {
         if (err) {
             console.error(err);
         } else {
@@ -36,7 +35,7 @@ app.get('/api/notes', (req, res) => {
 // POST Route for new notes
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
-    newNote.id = uuidv4();
+    newNote.id = db.length.toString();
     db.push(newNote);
     fs.writeFile('./db/db.json', JSON.stringify(db), (err) => {
         if (err) {
